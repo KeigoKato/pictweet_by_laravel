@@ -8,7 +8,18 @@
 
 <!-- メインの部分を以下に記述する。 -->
 @section("container")
-<h2>h2テスト</h2>
-<h3>h3テスト</h3>
-<h4>h4テスト</h4>
+<table>
+    <tr>
+        <th>id: </th>
+        <th>title: </th>
+        <th>body: </th>
+    </tr>
+    @foreach($tweets as $tweet)
+    <tr>
+        <td>{{$tweet->id}}</td>
+        <td>{{$tweet->title}}</td>
+        <td>{{$tweet->body}}</td>
+    </tr>
+    @endforeach
+</table>
 @endsection
