@@ -15,4 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource("tweets", "TweetsController");
+// Route::resource("tweets", "TweetsController");
