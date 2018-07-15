@@ -16,3 +16,5 @@ Route::get('/', function () {
 });
 
 // Route::resource("tweets", "TweetsController");
+
+Route::get("tweets/index", "TweetsController@index");
