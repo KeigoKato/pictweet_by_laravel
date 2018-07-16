@@ -18,3 +18,10 @@ Route::get('/', function () {
 // Route::resource("tweets", "TweetsController");
 
 Route::get("tweets/index", "TweetsController@index");
+Route::get("tweets/add", "TweetsController@add");
+Route::post("tweets/add", "TweetsController@create");
+Route::get("tweets/search", "TweetsController@search");
+Route::get("tweets/edit", "TweetsController@edit");
+Route::post("tweets/edit", "TweetsController@update");
+Route::get("tweets/delete", "TweetsController@delete");
+Route::post("tweets/delete", "TweetsController@remove");

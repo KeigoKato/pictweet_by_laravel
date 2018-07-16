@@ -9,16 +9,32 @@
 <!-- メインの部分を以下に記述する。 -->
 @section("container")
 <table>
+    <form action="search" method="get">
+        <input type="text" name="keyword">
+        <input type="submit" value="search">
+    </form>
     <tr>
         <th>id: </th>
         <th>title: </th>
         <th>body: </th>
+        <th>edit: </th>
+        <th>delete: </th>
     </tr>
     @foreach($tweets as $tweet)
     <tr>
         <td>{{$tweet->id}}</td>
         <td>{{$tweet->title}}</td>
         <td>{{$tweet->body}}</td>
+        <td>
+            <form action="edit" method="get">
+                <input type="hidden" name="id" value="{{$tweet->id}}">
+                <input type="submit" value="edit">
+            </form>
+            <form action="delete" method="get">
+                <input type="hidden" name="id" value="{{$tweet->id}}">
+                <input type="submit" value="delete">
+            </form>
+        </td>
     </tr>
     @endforeach
 </table>
