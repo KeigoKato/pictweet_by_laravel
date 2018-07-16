@@ -40,16 +40,26 @@ class TweetsController extends Controller
     public function edit(Request $request) {
         $id = $request->id;
         $tweet = Tweet::find($id);
-        Log::debug('$tweet: '.$tweet);
         return view("tweets.edit", ["tweet"=>$tweet]);
     }
 
     public function update(Request $request) {
         $id = $request->id;
-        $tweet = Tweet::find($id);
         $form = $request->all();
         unset($form["_token"]);
-        $tweet->fill($form)->save();
+        $tweet = Tweet::find($id)->fill($form)->save();
+        return redirect("tweets/index");
+    }
+
+    public function delete(Request $request) {
+        $id = $request->id;
+        $tweet = Tweet::find($id);
+        return view("tweets.delete", ["tweet"=>$tweet]);
+    }
+
+    public function remove(Request $request) {
+        $id = $request->id;
+        $tweet = Tweet::find($id)->delete();
         return redirect("tweets/index");
     }
 }

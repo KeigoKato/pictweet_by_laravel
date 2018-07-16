@@ -17,6 +17,8 @@
         <th>id: </th>
         <th>title: </th>
         <th>body: </th>
+        <th>edit: </th>
+        <th>delete: </th>
     </tr>
     @foreach($tweets as $tweet)
     <tr>
@@ -27,6 +29,10 @@
             <form action="edit" method="get">
                 <input type="hidden" name="id" value="{{$tweet->id}}">
                 <input type="submit" value="edit">
+            </form>
+            <form action="delete" method="get">
+                <input type="hidden" name="id" value="{{$tweet->id}}">
+                <input type="submit" value="delete">
             </form>
         </td>
     </tr>
