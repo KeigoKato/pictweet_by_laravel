@@ -25,3 +25,6 @@ Route::get("tweets/edit", "TweetsController@edit");
 Route::post("tweets/edit", "TweetsController@update");
 Route::get("tweets/delete", "TweetsController@delete");
 Route::post("tweets/delete", "TweetsController@remove");
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
