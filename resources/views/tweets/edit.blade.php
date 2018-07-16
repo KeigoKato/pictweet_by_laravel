@@ -9,15 +9,16 @@
 <!-- メインの部分を以下に記述する。 -->
 @section("container")
 <table>
-    <form action="add" method="post">
+    <form action="edit" method="post">
     {{csrf_field()}}
+        <input type="hidden" name="id" value="{{$tweet->id}}">
         <tr>
             <th>title: </th>
-            <td><input type="text" name="title"></td>
+            <td><input type="text" name="title" value="{{$tweet->title}}"></td>
         </tr>
         <tr>
             <th>body: </th>
-            <td><input type="text" name="body"></td>
+            <td><input type="text" name="body" value="{{$tweet->body}}"></td>
         </tr>
         <tr>
             <th></th>

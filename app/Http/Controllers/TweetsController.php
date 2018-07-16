@@ -36,4 +36,20 @@ class TweetsController extends Controller
         // Log::debug('$results: '.$results);
         return view("tweets.search", ["results"=>$results]);
     }
+
+    public function edit(Request $request) {
+        $id = $request->id;
+        $tweet = Tweet::find($id);
+        Log::debug('$tweet: '.$tweet);
+        return view("tweets.edit", ["tweet"=>$tweet]);
+    }
+
+    public function update(Request $request) {
+        $id = $request->id;
+        $tweet = Tweet::find($id);
+        $form = $request->all();
+        unset($form["_token"]);
+        $tweet->fill($form)->save();
+        return redirect("tweets/index");
+    }
 }
