@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Tweet;
 use DB;
 
 class TweetsController extends Controller
 {
     public function index() {
-        $tweets = DB::table("tweets")->get();
+        $tweets = Tweet::all();
         return view("tweets.index", ["tweets"=>$tweets]);
     }
 
@@ -17,11 +18,18 @@ class TweetsController extends Controller
     }
 
     public function create(Request $request) {
-        $param = [
-            "title" => $request->title,
-            "body" => $request->body,
-        ];
-        DB::table("tweets")->insert($param);
+        $tweet = new Tweet;
+        $form = $request->all();
+        unset($form["_token"]);
+        $tweet->fill($form)->save();
         return redirect("tweets/index");
+    }
+
+    public function find() {
+        return view("tweets.find");
+    }
+
+    public function search(Request $request) {
+        $title = $request->input;
     }
 }
