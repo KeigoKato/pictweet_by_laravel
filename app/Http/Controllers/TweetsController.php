@@ -11,4 +11,17 @@ class TweetsController extends Controller
         $tweets = DB::table("tweets")->get();
         return view("tweets.index", ["tweets"=>$tweets]);
     }
+
+    public function add() {
+        return view("tweets.add");
+    }
+
+    public function create(Request $request) {
+        $param = [
+            "title" => $request->title,
+            "body" => $request->body,
+        ];
+        DB::table("tweets")->insert($param);
+        return redirect("tweets/index");
+    }
 }
