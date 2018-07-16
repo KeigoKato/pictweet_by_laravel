@@ -1,8 +1,7 @@
-<!-- @extendの継承を用いてlayouts/master.blade.phpの内容が反映される -->
 @extends("layouts.master")
-<!-- layouts/master.blade.php用いてに従って、@yield("title")に値を代入する -->
+
 @section("title", "index")
-<!-- ヘッダーとフッターの外部ファイルを@yield("header")と@yield("footer")にそれぞれ埋め込む -->
+
 @include("layouts.header")
 @include("layouts.footer")
 
@@ -17,11 +16,11 @@
             <th>title: </th>
             <th>body: </th>
         </tr>
-        @foreach($tweets as $tweet)
+        @foreach($results as $result)
         <tr>
-            <td>{{$tweet->id}}</td>
-            <td>{{$tweet->title}}</td>
-            <td>{{$tweet->body}}</td>
+            <td>{{$result->id}}</td>
+            <td>{{$result->title}}</td>
+            <td>{{$result->body}}</td>
         </tr>
         @endforeach
     </form>

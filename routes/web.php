@@ -20,3 +20,4 @@ Route::get('/', function () {
 Route::get("tweets/index", "TweetsController@index");
 Route::get("tweets/add", "TweetsController@add");
 Route::post("tweets/add", "TweetsController@create");
+Route::get("tweets/search", "TweetsController@search");

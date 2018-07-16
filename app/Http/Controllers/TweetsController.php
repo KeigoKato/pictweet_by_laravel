@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// モデルファイルを使ってDBにアクセスしないとcreated_atなどの時刻が記録されない
+use App\Tweet;
+use Log;
 use DB;
 
 class TweetsController extends Controller
 {
     public function index() {
-        $tweets = DB::table("tweets")->get();
+        $tweets = Tweet::all();
         return view("tweets.index", ["tweets"=>$tweets]);
     }
 
@@ -17,11 +20,20 @@ class TweetsController extends Controller
     }
 
     public function create(Request $request) {
-        $param = [
-            "title" => $request->title,
-            "body" => $request->body,
-        ];
-        DB::table("tweets")->insert($param);
+        $tweet = new Tweet;
+        $form = $request->all();
+        unset($form["_token"]);
+        $tweet->fill($form)->save();
         return redirect("tweets/index");
+    }
+
+    public function search(Request $request) {
+        $keyword = $request->keyword;
+        $results = Tweet::where('title','like','%'.$keyword.'%')
+            ->orWhere('body','like','%'.$keyword.'%')
+            ->get();
+        // デバッグしたいときはLogを使う
+        // Log::debug('$results: '.$results);
+        return view("tweets.search", ["results"=>$results]);
     }
 }
