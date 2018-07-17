@@ -14,6 +14,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
+        // グローバルミドルウェア
+        // ここに書かれたミドルウェアは全てのルーテイングの際に実行される
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
@@ -27,6 +29,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middlewareGroups = [
+        // ミドルウェアをグループにまとめることができる
+        // ->middleware("web")と書けば"web"キーのバリューのミドルウェアが適用される
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
@@ -51,6 +55,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        // ここにもミドルウェアのグループがある
+        // ->middleware("auth")とかけば適用される
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,

@@ -17,7 +17,8 @@ Route::get('/', function () {
 
 // Route::resource("tweets", "TweetsController");
 
-// ログインしていないユーザーの場合にリダイレクトさせる方法として、middleware("auth")を使う。
+// middleware("auth")はログインしているかどうかを判定し、していなければログインページへリダイレクトされる。
+// middleware("auth")と書けば、Kernel.php内にまとめてある"auth"キーの値にあるミドルウェアが全て適用される
 Route::get("tweets/index", "TweetsController@index");
 Route::get("tweets/add", "TweetsController@add")->middleware("auth");
 Route::post("tweets/add", "TweetsController@create")->middleware("auth");
@@ -30,4 +31,3 @@ Route::post("tweets/delete", "TweetsController@remove")->middleware("auth");
 // ログイン認証
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-// これでtweets/indexはログイン必須となりログインせずにアクセスするとログインページにリダイレクトする
