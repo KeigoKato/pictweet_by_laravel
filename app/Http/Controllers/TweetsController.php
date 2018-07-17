@@ -5,14 +5,39 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 // モデルファイルを使ってDBにアクセスしないとcreated_atなどの時刻が記録されない
 use App\Tweet;
+use Illuminate\Support\Facades\Auth;
 use Log;
 use DB;
 
 class TweetsController extends Controller
 {
+    // public function getAuth(Request $request) {
+    //     return view("tweets.auth", ["message"=>"ログインしてください"]);
+    // }
+
+    // public function postAuth(Request $request) {
+    //     $username = Auth::user()->name
+    //     $email = $request->email;
+    //     $password = $request->password;
+    //     if (Auth::attempt([
+    //         "email" => $email,
+    //         "password" => $password,
+    //     ])) {
+    //         $msg = "ログインしました。(".$username.")";
+    //     } else {
+    //         $msg = "ログインに失敗しました。";
+    //     }
+    //     return view("tweets.auth", ["message" => $msg]);
+    // }
+
     public function index() {
+        // ログインしているユーザーのインスタンスを返す
+        // ログインしていなければnullになる
+        $user = Auth::user();
+
         $tweets = Tweet::all();
-        return view("tweets.index", ["tweets"=>$tweets]);
+        // ユーザーインスタンスをテンプレートに渡すために連想配列に追加する
+        return view("tweets.index", ["tweets"=>$tweets, "user"=>$user]);
     }
 
     public function add() {

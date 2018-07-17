@@ -8,6 +8,15 @@
 
 <!-- メインの部分を以下に記述する。 -->
 @section("container")
+
+{{--ログイン認証--}}
+{{--現在アクセスしているユーザーがログインしているかどうかを判定する--}}
+@if(Auth::check())
+<p>USER: {{$user->name.'('.$user->email.')'}}</p>
+@else
+<p>※ログインしていません。（<a href="/login">ログイン</a> | <a href="/register">会員登録</a>）</p>
+@endif
+
 <table>
     <form action="search" method="get">
         <input type="text" name="keyword">
