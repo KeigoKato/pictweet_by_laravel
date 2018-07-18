@@ -9,7 +9,7 @@
 @section("container")
 <p>{{$message}}</p>
     <table>
-        <form action="/hello/auth" method="post">
+        <form action="/tweets/auth" method="post">
             {{csrf_field()}}
             <tr>
                 <th>mail: </th>

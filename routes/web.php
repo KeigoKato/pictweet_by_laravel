@@ -31,3 +31,6 @@ Route::post("tweets/delete", "TweetsController@remove")->middleware("auth");
 // ログイン認証
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('tweets/auth', 'TweetsController@getAuth')->middleware('guest');
+Route::post('tweets/auth', 'TweetsController@postAuth')->middleware('guest');
