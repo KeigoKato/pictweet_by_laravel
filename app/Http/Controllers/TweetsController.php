@@ -41,6 +41,7 @@ class TweetsController extends Controller
         $sort = $request->sort;
         $tweets = Tweet::orderBy($sort, 'asc')->paginate(5);
         $param = ['tweets' => $tweets, 'sort' => $sort, 'user' => $user];
+        \Debugbar::info($param);
         // ユーザーインスタンスをテンプレートに渡すために連想配列に追加する
         return view("tweets.index", $param);
     }
