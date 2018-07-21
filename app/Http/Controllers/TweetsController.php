@@ -30,14 +30,19 @@ class TweetsController extends Controller
         }
     }
 
-    public function index() {
+    public function index(Request $request) {
         // ログインしているユーザーのインスタンスを返す
         // ログインしていなければnullになる
         $user = Auth::user();
 
-        $tweets = Tweet::all();
+        // $tweets = Tweet::all();
+        // $tweets = DB::table('tweets')->simplePaginate(5);
+        // $tweets = Tweet::simplePaginate(5);
+        $sort = $request->sort;
+        $tweets = Tweet::orderBy($sort, 'asc')->paginate(5);
+        $param = ['tweets' => $tweets, 'sort' => $sort, 'user' => $user];
         // ユーザーインスタンスをテンプレートに渡すために連想配列に追加する
-        return view("tweets.index", ["tweets"=>$tweets, "user"=>$user]);
+        return view("tweets.index", $param);
     }
 
     public function add() {

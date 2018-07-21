@@ -29,6 +29,11 @@
         <th>edit: </th>
         <th>delete: </th>
     </tr>
+    <tr>
+        <th><a href="/tweets/index?sort=id">id</a></th>
+        <th><a href="/tweets/index?sort=title">title</a></th>
+        <th><a href="/tweets/index?sort=body">body</a></th>
+    </tr>
     @foreach($tweets as $tweet)
     <tr>
         <td>{{$tweet->id}}</td>
@@ -47,4 +52,5 @@
     </tr>
     @endforeach
 </table>
+{{ $tweets->appends(['sort' => $sort])->links() }}
 @endsection
