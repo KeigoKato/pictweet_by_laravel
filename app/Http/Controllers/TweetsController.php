@@ -36,7 +36,8 @@ class TweetsController extends Controller
         $user = Auth::user();
 
         // $tweets = Tweet::all();
-        $tweets = DB::table('tweets')->simplePaginate(5);
+        // $tweets = DB::table('tweets')->simplePaginate(5);
+        $tweets = Tweet::simplePaginate(5);
         // ユーザーインスタンスをテンプレートに渡すために連想配列に追加する
         return view("tweets.index", ["tweets"=>$tweets, "user"=>$user]);
     }
