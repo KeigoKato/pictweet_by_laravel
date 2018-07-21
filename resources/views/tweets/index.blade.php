@@ -47,4 +47,5 @@
     </tr>
     @endforeach
 </table>
+{{ $tweets->links() }}
 @endsection
