@@ -42,6 +42,7 @@ class TweetsController extends Controller
         $tweets = Tweet::orderBy($sort, 'asc')->paginate(5);
         $param = ['tweets' => $tweets, 'sort' => $sort, 'user' => $user];
         \Debugbar::info($param);
+        \Debugbar::info($sort);
         // ユーザーインスタンスをテンプレートに渡すために連想配列に追加する
         return view("tweets.index", $param);
     }
@@ -59,13 +60,15 @@ class TweetsController extends Controller
     }
 
     public function search(Request $request) {
+        $user = Auth::user();
+        \Debugbar::info($user);
         $keyword = $request->keyword;
         $results = Tweet::where('title','like','%'.$keyword.'%')
             ->orWhere('body','like','%'.$keyword.'%')
             ->get();
         // デバッグしたいときはLogを使う
         // Log::debug('$results: '.$results);
-        return view("tweets.search", ["results"=>$results]);
+        return view("tweets.search", ["results"=>$results, "user"=>$user]);
     }
 
     public function edit(Request $request) {
