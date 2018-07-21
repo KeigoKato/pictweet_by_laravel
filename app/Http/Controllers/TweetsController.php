@@ -11,24 +11,24 @@ use DB;
 
 class TweetsController extends Controller
 {
-    // public function getAuth(Request $request) {
-    //     return view("tweets.auth", ["message"=>"ログインしてください"]);
-    // }
+    public function getAuth(Request $request) {
+        return view("tweets.auth", ["message"=>"ログインしてください"]);
+    }
 
-    // public function postAuth(Request $request) {
-    //     $username = Auth::user()->name
-    //     $email = $request->email;
-    //     $password = $request->password;
-    //     if (Auth::attempt([
-    //         "email" => $email,
-    //         "password" => $password,
-    //     ])) {
-    //         $msg = "ログインしました。(".$username.")";
-    //     } else {
-    //         $msg = "ログインに失敗しました。";
-    //     }
-    //     return view("tweets.auth", ["message" => $msg]);
-    // }
+    public function postAuth(Request $request) {
+        $email = $request->email;
+        $password = $request->password;
+        if (Auth::attempt([
+            "email" => $email,
+            "password" => $password,
+        ])) {
+            // $msg = "ログインしました。(".Auth::user()->name.")";
+            return redirect("tweets/index");
+        } else {
+            $msg = "ログインに失敗しました。";
+            return view("tweets.auth", ["message" => $msg]);
+        }
+    }
 
     public function index() {
         // ログインしているユーザーのインスタンスを返す
