@@ -5,6 +5,13 @@
 @include("layouts.header")
 @include("layouts.footer")
 
+
+@if(Auth::check())
+<p>USER: {{$user->name.'('.$user->email.')'}}</p>
+@else
+<p>※ログインしていません。（<a href="/login">ログイン</a> | <a href="/register">会員登録</a>）</p>
+@endif
+
 <!-- メインの部分を以下に記述する。 -->
 @section("container")
 <table>

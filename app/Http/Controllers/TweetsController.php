@@ -31,17 +31,19 @@ class TweetsController extends Controller
     }
 
     public function index(Request $request) {
-        // ログインしているユーザーのインスタンスを返す
-        // ログインしていなければnullになる
         $user = Auth::user();
 
-        // $tweets = Tweet::all();
-        // $tweets = DB::table('tweets')->simplePaginate(5);
-        // $tweets = Tweet::simplePaginate(5);
-        $sort = $request->sort;
+        // ログインしたての場合はGETパラメータがないからif文で分ける必要がある
+        if ($request->query()) {
+            // クエリ文字列が存在する場合
+            $sort = $request->sort;
+        } else {
+            // クエリ文字列が存在しない場合
+            $sort = 'id';
+        }
         $tweets = Tweet::orderBy($sort, 'asc')->paginate(5);
         $param = ['tweets' => $tweets, 'sort' => $sort, 'user' => $user];
-        // ユーザーインスタンスをテンプレートに渡すために連想配列に追加する
+        // 連想配列にしてビューに変数を渡すことができる
         return view("tweets.index", $param);
     }
 
@@ -58,13 +60,15 @@ class TweetsController extends Controller
     }
 
     public function search(Request $request) {
+        $user = Auth::user();
+        \Debugbar::info($user);
         $keyword = $request->keyword;
         $results = Tweet::where('title','like','%'.$keyword.'%')
             ->orWhere('body','like','%'.$keyword.'%')
             ->get();
         // デバッグしたいときはLogを使う
         // Log::debug('$results: '.$results);
-        return view("tweets.search", ["results"=>$results]);
+        return view("tweets.search", ["results"=>$results, "user"=>$user]);
     }
 
     public function edit(Request $request) {
