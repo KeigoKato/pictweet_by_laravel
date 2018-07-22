@@ -12,6 +12,10 @@
         <form action="/tweets/auth" method="post">
             {{csrf_field()}}
             <tr>
+                <th>name: </th>
+                <td><input type="text" name="name"></td>
+            </tr>
+            <tr>
                 <th>mail: </th>
                 <td><input type="text" name="email"></td>
             </tr>
