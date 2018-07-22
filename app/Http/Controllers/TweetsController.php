@@ -16,9 +16,11 @@ class TweetsController extends Controller
     }
 
     public function postAuth(Request $request) {
+        $name = $request->name;
         $email = $request->email;
         $password = $request->password;
         if (Auth::attempt([
+            'name' => $name,
             "email" => $email,
             "password" => $password,
         ])) {
