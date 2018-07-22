@@ -17,6 +17,9 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        // これはguestミドルウェアの動作を定義している
+        // ミドルウェアはhandleメソッドのみ定義できる
+        // ログインしていたらリダイレクトする
         if (Auth::guard($guard)->check()) {
             return redirect('/home');
         }

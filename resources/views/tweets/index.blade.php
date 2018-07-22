@@ -8,6 +8,15 @@
 
 <!-- メインの部分を以下に記述する。 -->
 @section("container")
+
+{{--ログイン認証--}}
+{{--現在アクセスしているユーザーがログインしているかどうかを判定する--}}
+@if(Auth::check())
+<p>USER: {{$user->name.'('.$user->email.')'}}</p>
+@else
+<p>※ログインしていません。（<a href="/login">ログイン</a> | <a href="/register">会員登録</a>）</p>
+@endif
+
 <table>
     <form action="search" method="get">
         <input type="text" name="keyword">
@@ -19,6 +28,11 @@
         <th>body: </th>
         <th>edit: </th>
         <th>delete: </th>
+    </tr>
+    <tr>
+        <th><a href="/tweets/index?sort=id">id</a></th>
+        <th><a href="/tweets/index?sort=title">title</a></th>
+        <th><a href="/tweets/index?sort=body">body</a></th>
     </tr>
     @foreach($tweets as $tweet)
     <tr>
@@ -38,4 +52,5 @@
     </tr>
     @endforeach
 </table>
+{{ $tweets->appends(['sort' => $sort])->links() }}
 @endsection
